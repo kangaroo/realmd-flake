@@ -10,7 +10,7 @@
     };
   };
   outputs = { self, flake-utils, oddjob, ... }@inputs:
-    flake-utils.lib.eachDefaultSystem (system:
+    flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
       let
         pkgs = inputs.nixpkgs.legacyPackages."${system}";
         oddjob = inputs.oddjob;
