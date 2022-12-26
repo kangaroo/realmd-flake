@@ -13,6 +13,7 @@
     flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
       let
         pkgs = inputs.nixpkgs.legacyPackages."${system}";
+        lib = inputs.nixpkgs.lib;
         oddjob = inputs.oddjob;
       in
       {
@@ -88,6 +89,15 @@ END
             "--sysconfdir=${placeholder "out"}/etc"
             "--with-systemd-unit-dir=${placeholder "out"}/share/systemd"
           ];
+
+          meta = with lib; {
+            description = "realmd Daemon";
+            homepage = "https://www.freedesktop.org/software/realmd";
+            mainProgram = "realm";
+            license = licenses.bsd0;
+            platforms = platforms.linux;
+            maintainers = with maintainers; [ kangaroo ];
+          };
         };
       });
 }
